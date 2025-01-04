@@ -16,7 +16,7 @@ O Cron é uma ferramenta poderosa no Linux usada para agendar tarefas para execu
 
 Cada linha em um arquivo `crontab` segue esta estrutura:
 
-```
+```bash
 * * * * * comando
 - - - - -
 | | | | | 
@@ -35,22 +35,27 @@ Cada linha em um arquivo `crontab` segue esta estrutura:
 ### 3. **Comandos Básicos para Trabalhar com Cron**
 
 1. **Listar os CronJobs do Usuário Atual**:
+
    ```bash
    crontab -l
    ```
 
 2. **Editar CronJobs**:
+
    ```bash
    crontab -e
    ```
+
    Abre o editor para modificar os cron jobs.
 
 3. **Remover Todos os CronJobs**:
+
    ```bash
    crontab -r
    ```
 
 4. **Exibir CronJobs de Outro Usuário (como root)**:
+
    ```bash
    sudo crontab -u username -l
    ```
@@ -59,37 +64,43 @@ Cada linha em um arquivo `crontab` segue esta estrutura:
 
 ### 4. **Exemplos de CronJobs**
 
-#### 4.1. Agendar um Script para Rodar Diariamente às 2h da Manhã:
+#### 4.1. Agendar um Script para Rodar Diariamente às 2h da Manhã
+
 ```bash
 0 2 * * * /path/to/script.sh
 ```
 
-#### 4.2. Limpar Logs a Cada Hora:
+#### 4.2. Limpar Logs a Cada Hora
+
 ```bash
 0 * * * * rm -f /var/log/*.log
 ```
 
-#### 4.3. Executar um Comando a Cada 5 Minutos:
+#### 4.3. Executar um Comando a Cada 5 Minutos
+
 ```bash
 */5 * * * * /usr/bin/python3 /path/to/script.py
 ```
 
-#### 4.4. Backup Todo Dia 1º de Cada Mês às 3h da Manhã:
+#### 4.4. Backup Todo Dia 1º de Cada Mês às 3h da Manhã
+
 ```bash
 0 3 1 * * tar -czf /backup/home-$(date +\%Y-\%m-\%d).tar.gz /home
 ```
 
-#### 4.5. Rodar Somente em Dias Úteis (Segunda a Sexta):
+#### 4.5. Rodar Somente em Dias Úteis (Segunda a Sexta)
+
 ```bash
 30 6 * * 1-5 /path/to/weekday_task.sh
 ```
 
-
 #### 4.6. Obtendo a data e salvando em um arquivo
+
 ```bash
 * * * * * echo $(date) >> /home/mauriciobenjamin700/projects/my/cron-learning/cron_log.txt
 */2 * * * * echo $(date) >> /home/mauriciobenjamin700/projects/my/cron-learning/cron_log2.txt
 ```
+
 ---
 
 ### 5. **Agendamento com Arquivos Crontab**
@@ -101,7 +112,8 @@ sudo nano /etc/crontab
 ```
 
 A sintaxe neste arquivo inclui um campo extra para especificar o usuário:
-```
+
+```bash
 * * * * * username comando
 ```
 
@@ -150,16 +162,19 @@ run-parts /etc/cron.daily
 ### 9. **Desativar ou Pausar Cron Temporariamente**
 
 1. **Parar o Serviço Cron**:
+
    ```bash
    sudo systemctl stop cron
    ```
 
 2. **Reiniciar o Serviço Cron**:
+
    ```bash
    sudo systemctl start cron
    ```
 
 3. **Desabilitar Cron na Inicialização**:
+
    ```bash
    sudo systemctl disable cron
    ```
@@ -170,6 +185,7 @@ run-parts /etc/cron.daily
 
 - **Certifique-se de usar caminhos absolutos**: Scripts ou comandos no cron não possuem o mesmo ambiente de variáveis que sua sessão interativa.
 - **Inclua variáveis de ambiente necessárias no script**:
+
   ```bash
   PATH=/usr/bin:/bin
   ```
@@ -181,6 +197,7 @@ run-parts /etc/cron.daily
 ### 11. **Depuração de Cron**
 
 - Verifique os logs do cron:
+
   ```bash
   cat /var/log/syslog | grep cron
   ```
